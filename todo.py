@@ -49,14 +49,18 @@ def remove_task(id):
     show_list()
 
 def command_line():
-    parser = argparse.ArgumentParser(description='This is a command line todo-list.')
+    parser = argparse.ArgumentParser(prog='PROG', description='This is a command line todo-list.')
     parser.add_mutually_exclusive_group()
     parser.add_argument('-l', '--list', action='store_true')
     parser.add_argument('-a', '--add', action='store', nargs=1)
     parser.add_argument('-r', '--remove', action="store", nargs=1, type=int)
     parser.add_argument('-d', '--description', action='store', nargs=1)
     parser.add_argument('-p', '--priority', action="store", nargs=1)
-
+    subparsers = parser.add_subparsers()
+    add_parser = subparsers.add_parser('add', help='add new task')
+    add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
+    add_parser.add_argument('-d', '--description', action='store', nargs=1, help="Adds an description to an task")
+    
     try:
         args = parser.parse_args()
     except SystemExit as e:
@@ -70,6 +74,10 @@ def command_line():
         add_task(args.add)
     elif args.remove:
         remove_task(args.remove[0])
+    elif args.task:
+        print(args.task[0])
+    if args.description:
+        print(args.description[0])
 
 def load_todo_list_from_storage():
     database = {}
