@@ -13,7 +13,7 @@ import json
 from datetime import date
 
 META_FOLDER = 'C:/scripts/todo'
-DATA = "C:/scripts/todo/database.json"
+DATA = "C:/data/todo/database.json"
 TASK_SECTION = 'tasks'
 
 def show_list():
