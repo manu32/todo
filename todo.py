@@ -56,16 +56,20 @@ def command_line():
     parser.add_argument('-r', '--remove', action="store", nargs=1, type=int)
     parser.add_argument('-d', '--description', action='store', nargs=1)
     parser.add_argument('-p', '--priority', action="store", nargs=1)
-        
+    subparsers = parser.add_subparsers()
+    
+    
     add_parser = subparsers.add_parser('add', help='add new task')
     add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
     add_parser.add_argument('-d', '--description', action='store', nargs=1, help="Adds an description to an task")
     add_parser.add_argument('-p', '--priority', action='store', nargs=1, help='adds a priority to a task')
+
+    list_parser = subparsers.add_parser('list', help='list tasks and settings')
+    list_parser.add_argument('-a', '--all', action='store_true', help='lists all stored task in random order')
+    list_parser.add_argument('-t', '--task', action='store', nargs=1, help='list task with specified id')
+    list_parser.add_argument('-c', '--category' action='store', nargs=1, help='list all tasks with specified category')
+    list_parser.add_argument('-p', '--priority' action='store', nargs=1, help='list all tasks with priority greater then or equal to specified number')
     
-    subparsers = parser.add_subparsers()
-    add_parser = subparsers.add_parser('add', help='add new task')
-    add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
-    add_parser.add_argument('-d', '--description', action='store', nargs=1, help="Adds an description to an task")
     
     try:
         args = parser.parse_args()
