@@ -56,6 +56,12 @@ def command_line():
     parser.add_argument('-r', '--remove', action="store", nargs=1, type=int)
     parser.add_argument('-d', '--description', action='store', nargs=1)
     parser.add_argument('-p', '--priority', action="store", nargs=1)
+        
+    add_parser = subparsers.add_parser('add', help='add new task')
+    add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
+    add_parser.add_argument('-d', '--description', action='store', nargs=1, help="Adds an description to an task")
+    add_parser.add_argument('-p', '--priority', action='store', nargs=1, help='adds a priority to a task')
+    
     subparsers = parser.add_subparsers()
     add_parser = subparsers.add_parser('add', help='add new task')
     add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
