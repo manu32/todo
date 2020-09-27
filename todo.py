@@ -48,6 +48,12 @@ def remove_task(id):
     print('No task found with id: ' + str(id))
     show_list()
 
+def command_add(args):
+    print('add parser activated')
+
+def command_list(args):
+    print('list parser activated')
+
 def command_line():
     parser = argparse.ArgumentParser(prog='PROG', description='This is a command line todo-list.')
     parser.add_mutually_exclusive_group()
@@ -60,15 +66,18 @@ def command_line():
     
     
     add_parser = subparsers.add_parser('add', help='add new task')
+    add_parser.set_defaults(func=command_add)
     add_parser.add_argument('-t', '--task', action='store', nargs=1, help="Adds an task.")
     add_parser.add_argument('-d', '--description', action='store', nargs=1, help="Adds an description to an task")
     add_parser.add_argument('-p', '--priority', action='store', nargs=1, help='adds a priority to a task')
 
     list_parser = subparsers.add_parser('list', help='list tasks and settings')
+    list_parser.set_defaults(func=command_list)
+    list_parser.add_mutually_exclusive_group()
     list_parser.add_argument('-a', '--all', action='store_true', help='lists all stored task in random order')
     list_parser.add_argument('-t', '--task', action='store', nargs=1, help='list task with specified id')
-    list_parser.add_argument('-c', '--category' action='store', nargs=1, help='list all tasks with specified category')
-    list_parser.add_argument('-p', '--priority' action='store', nargs=1, help='list all tasks with priority greater then or equal to specified number')
+    list_parser.add_argument('-c', '--category', action='store', nargs=1, help='list all tasks with specified category')
+    list_parser.add_argument('-p', '--priority', action='store', nargs=1, help='list all tasks with priority greater then or equal to specified number')
     
     
     try:
@@ -77,6 +86,8 @@ def command_line():
         if e.code != 0:
             print("Invalid arguments")
             sys.exit(e.code)
+
+    args.func(args)
 
     if args.list:
         show_list()
