@@ -8,11 +8,6 @@ __status__ = "Development"
 import json_handler
 from datetime import date
 
-def from_json(self, json_task):
-    #conversion from json to Task required
-
-def to_json(self):
-    #conversion from Task to json required
 
 class Task:
 
@@ -27,6 +22,15 @@ class Task:
         print('['+ self.id + ']: ' + self.date + ':' + self.title)
 
 
+def from_json(self, json_task):
+    if
+
+    #conversion from json to Task required
+
+def to_json(self):
+    #conversion from Task to json required
+
+
 class TaskDBHandler:
 
     def __init__(self, filename):
@@ -37,7 +41,7 @@ class TaskDBHandler:
     def load_tasks(self):
         if self.json_handle.is_file_good():
             for json_task in self.json_handle.get_content()['tasks']:
-                if json_task[]
+                
 
                 task = Task   
 
