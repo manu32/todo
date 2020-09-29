@@ -18,16 +18,52 @@ class Task:
         self.description = description
         self.priority = priority
 
+    def from_json(self, title, id, date, description = '', priority = 0):
+        self.id = id
+        self.title = title
+        self.date = date
+        self.description = description
+        self.priority = priority
+
     def __str__(self):
         print('['+ self.id + ']: ' + self.date + ':' + self.title)
 
 
-def from_json(self, json_task):
-    if
+def from_json(json_task):
+    task = Task()
 
+    if json_task['title']:
+        task.title = json_task['title']
+    
+    if json_task['description']:
+        task.description = json_task['description']
+    
+    if json_task['date']:
+        task.date = json_task['date']
+    else:
+        print('Read task without date')
+
+    if json_task['priority']:
+        task.priority = json_task['priority']
+
+    if json_task['id']:
+        task.id = json_task['id']
+    else:
+        print('Read task without id')
+        #error: trying to read task without id
+
+    return task
     #conversion from json to Task required
 
-def to_json(self):
+def to_json(task):
+    
+    json_task = {}
+    json_task['title'] = task.title
+    json_task['id'] = task.id
+    json_task['priority'] = task.priority
+    json_task['date'] = task.date
+    json_task['description'] = task.description
+    return json_task
     #conversion from Task to json required
 
 
@@ -41,16 +77,15 @@ class TaskDBHandler:
     def load_tasks(self):
         if self.json_handle.is_file_good():
             for json_task in self.json_handle.get_content()['tasks']:
-                
-
-                task = Task   
-
-            self.tasks = self.json_handle.get_content()['tasks']
+                self.tasks.append(from_json(json_task))
     
     def write_tasks(self):
         _content = {}
         _content['tasks'] = []
-        _content['tasks'] = self.tasks
+
+        for task in self.tasks:
+            _content['tasks'].append(to_json(task))    
+        
         self.json_handle.write_content(_content)
         self.json_handle.write_to_json()
     
@@ -78,7 +113,7 @@ class TaskDBHandler:
 
     def get_last_id(self):
         try:
-            return int(self.tasks[-1]['id'])
+            return self.tasks[-1].id
         except:
             return 0
 
