@@ -12,7 +12,7 @@ import json
 import task_db
 
 META_FOLDER = 'C:/scripts/todo'
-DATA = "D:/data/todo/database.json"
+DATA = "C:/data/todo/database.json"
 TASK_SECTION = 'tasks'
 
 taskDBHandle = task_db.TaskDBHandler(DATA)
@@ -68,8 +68,7 @@ def command_edit(args):
 
 
 def command_line():
-    parser = argparse.ArgumentParser(prog='PROG', description='This is a command line todo-list.')
-    parser.add_mutually_exclusive_group()
+    parser = argparse.ArgumentParser(description='This is a command line todo-list.')
     subparsers = parser.add_subparsers()
 
     #create parser for adding tasks
@@ -100,12 +99,11 @@ def command_line():
 
     try:
         args = parser.parse_args()
+        args.func(args)
     except SystemExit as e:
         if e.code != 0:
             print("Invalid arguments")
             sys.exit(e.code)
-    try:
-        args.func(args)
     except ValueError as e:
         print(e)
 
