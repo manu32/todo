@@ -32,21 +32,21 @@ class Task:
 def from_json(json_task):
     task = Task()
 
-    if json_task['title']:
+    if 'title' in json_task:
         task.title = json_task['title']
     
-    if json_task['description']:
+    if 'description' in json_task:
         task.description = json_task['description']
     
-    if json_task['date']:
+    if 'date' in json_task:
         task.date = json_task['date']
     else:
         print('Read task without date')
 
-    if json_task['priority']:
+    if 'priority' in json_task:
         task.priority = json_task['priority']
 
-    if json_task['id']:
+    if 'id' in json_task:
         task.id = json_task['id']
     else:
         print('Read task without id')
