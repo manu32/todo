@@ -108,10 +108,20 @@ class TaskDBHandler:
                 return True
         return False
 
+    def get_task(self, id):
+        for task in self.tasks:
+            if task.id == id:
+                return task
+        return None
+
+    def has_task(self, id):
+        for task in self.tasks:
+            if task.id == id:
+                return True
+        return False
+
     def get_last_id(self):
         try:
             return self.tasks[-1].id
         except:
             return 0
-
-
