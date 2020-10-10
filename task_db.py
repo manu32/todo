@@ -8,7 +8,6 @@ __status__ = "Development"
 import json_handler
 from datetime import date
 
-
 class Task:
 
     def __init__(self, title = '', description = '', priority = 0):
@@ -27,7 +26,6 @@ class Task:
 
     def __str__(self):
         print('['+ self.id + ']: ' + self.date + ':' + self.title)
-
 
 def from_json(json_task):
     task = Task()
@@ -96,14 +94,13 @@ class TaskDBHandler:
 
     def remove_task(self, id):
         for task in self.tasks:
-            if (task['id']) == id:
+            if task.id == id:
                 self.tasks.remove(task)
                 self.write_tasks()
                 return True
         return False
     
     def update_task(self, updated_task):
-
         for task in self.tasks:
             if updated_task.id == task.id:
                 task = updated_task
